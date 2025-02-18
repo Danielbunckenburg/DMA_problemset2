@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{verbatim}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{array}
+\usepackage{booktabs}
+
+
+\usepackage{algorithm}
+
+
+
+\title{DMA problemset 2}
+\author{Daniel Andre Bunckenburg - tvf882@alumni.ku.dk}
+\date{February 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Opgave 1}
+
+
+
+\begin{verbatim}
+
+j := n
+good := True
+while (j > 1 and good) 
+    i := j - 1
+    while (i >= 1 and good)
+        if (A[i] > A[j])
+            good := false
+        i := i - 1
+    j := j - 1
+if (good)
+    return "Success"
+else
+    return "failure"
+
+\end{verbatim}
+
+
+
+\end{document}
