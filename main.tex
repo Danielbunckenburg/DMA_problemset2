@@ -6,6 +6,16 @@
 \usepackage{algpseudocode}
 \usepackage{array}
 \usepackage{booktabs}
+\usepackage{amsthm}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
 
 
 \usepackage{algorithm}
@@ -20,43 +30,358 @@
 
 \maketitle
 
-\newpage
+\section{Problem 1}
+
+\section*{Step-by-Step Notes}
+
+\paragraph{Initial Condition:}
+First $i = 10$, so $j$ goes from $1$ to $9$.
+
+\subsection*{Loop \#1}
+\begin{align*}
+\text{temp} &= A[3], \\
+A[3] &= A[4]^2, \\
+A[4] &= \text{temp}^2, \\
+\text{swapped} &= \text{true}.
+\end{align*}
+
+\subsection*{Loop \#2}
+\begin{align*}
+\text{int } A[3] &= 19, \\
+&\text{(Since it's not true, the loop continues to the next iteration.)}
+\end{align*}
+
+\subsection*{Loop \#3}
+\[
+  \text{swapped} = \text{true}.
+\]
+
+\subsection*{Loop \#4}
+\begin{align*}
+\text{temp} &= A[y], \\
+A[y] &= A[y+1]^2, \\
+A[y+1] &= \text{temp}^2, \\
+\text{swapped} &= \text{true}.
+\end{align*}
 
 \section{Opgave 1}
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figures/problemset2_1.jpg}
-    \caption{Caption for the figure.}
-    \label{fig:myfigure}
-\end{figure}
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figures/problemset2_2.jpg}
-    \caption{Caption for the figure.}
-    \label{fig:myfigure}
-\end{figure}
+\subsection{1.a}
 
 
+\section*{Optimized Bubble Sort on the Array \(\displaystyle A = [5,\,2,\,19,\,7,\,6,\,12,\,10,\,17,\,13,\,14]\)}
 
+\subsection*{1. Algorithm Pseudocode}
 \begin{verbatim}
-
-j := n
-good := True
-while (j > 1 and good) 
-    i := j - 1
-    while (i >= 1 and good)
-        if (A[i] > A[j])
-            good := false
-        i := i - 1
-    j := j - 1
-if (good)
-    return "Success"
-else
-    return "failure"
-
+OptimizedBubbleSort(A)
+    i := 1
+    swapped := true
+    
+    while (i <= size(A) and swapped) {
+        swapped := false
+        
+        for j := 1 to (size(A) - i) {
+            if (A[j] > A[j + 1]) {
+                // swap A[j] and A[j + 1]
+                tmp := A[j]
+                A[j] := A[j + 1]
+                A[j + 1] := tmp
+                swapped := true
+            }
+        }
+        
+        i := i + 1
+    }
 \end{verbatim}
+
+\subsection*{2. Pass-by-Pass Execution}
+
+We use 1-based indexing to match the pseudocode.
+
+\[
+A = [5,\;2,\;19,\;7,\;6,\;12,\;10,\;17,\;13,\;14].
+\]
+
+\paragraph{Pass 1 (\(i = 1\))} 
+\begin{itemize}
+  \item Compare and swap up to index \(j = 9\) (since \(\text{size}(A) - i = 10 - 1 = 9\)):
+  \begin{enumerate}
+    \item \(\text{Compare }A[1]\text{ and }A[2]:\, 5 > 2\;\rightarrow\;\text{swap} \)
+      \[
+        A \leftarrow [2,\;5,\;19,\;7,\;6,\;12,\;10,\;17,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[2]\text{ and }A[3]:\, 5 > 19\;\rightarrow\;\text{no swap}.\)
+    \item \(\text{Compare }A[3]\text{ and }A[4]:\, 19 > 7\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;19,\;6,\;12,\;10,\;17,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[4]\text{ and }A[5]:\, 19 > 6\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;19,\;12,\;10,\;17,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[5]\text{ and }A[6]:\, 19 > 12\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;12,\;19,\;10,\;17,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[6]\text{ and }A[7]:\, 19 > 10\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;12,\;10,\;19,\;17,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[7]\text{ and }A[8]:\, 19 > 17\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;12,\;10,\;17,\;19,\;13,\;14].
+      \]
+    \item \(\text{Compare }A[8]\text{ and }A[9]:\, 19 > 13\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;12,\;10,\;17,\;13,\;19,\;14].
+      \]
+    \item \(\text{Compare }A[9]\text{ and }A[10]:\, 19 > 14\;\rightarrow\;\text{swap}\)
+      \[
+        A \leftarrow [2,\;5,\;7,\;6,\;12,\;10,\;17,\;13,\;14,\;19].
+      \]
+  \end{enumerate}
+  \[
+    \text{End of Pass 1: } A = [2,\;5,\;7,\;6,\;12,\;10,\;17,\;13,\;14,\;19].
+  \]
+\end{itemize}
+
+\paragraph{Pass 2 (\(i = 2\))}
+\begin{itemize}
+  \item Now compare and swap up to index \(j = 8\).
+  \begin{enumerate}
+    \item \(2 > 5\,?\;\text{no swap}.\)
+    \item \(5 > 7\,?\;\text{no swap}.\)
+    \item \(7 > 6\,?\;\text{swap}\rightarrow A=[2,\,5,\,6,\,7,\,12,\,10,\,17,\,13,\,14,\,19].\)
+    \item \(7 > 12\,?\;\text{no swap}.\)
+    \item \(12 > 10\,?\;\text{swap}\rightarrow A=[2,\,5,\,6,\,7,\,10,\,12,\,17,\,13,\,14,\,19].\)
+    \item \(12 > 17\,?\;\text{no swap}.\)
+    \item \(17 > 13\,?\;\text{swap}\rightarrow A=[2,\,5,\,6,\,7,\,10,\,12,\,13,\,17,\,14,\,19].\)
+    \item \(17 > 14\,?\;\text{swap}\rightarrow A=[2,\,5,\,6,\,7,\,10,\,12,\,13,\,14,\,17,\,19].\)
+  \end{enumerate}
+  \[
+    \text{End of Pass 2: } A = [2,\;5,\;6,\;7,\;10,\;12,\;13,\;14,\;17,\;19].
+  \]
+\end{itemize}
+
+\paragraph{Pass 3 (\(i = 3\))}
+\begin{itemize}
+  \item Compare and swap up to index \(j = 7\).
+  \[
+    2>5\,? \text{ no},\quad
+    5>6\,? \text{ no},\quad
+    6>7\,? \text{ no},\quad
+    7>10\,? \text{ no},\quad
+    10>12\,? \text{ no},\quad
+    12>13\,? \text{ no},\quad
+    13>14\,? \text{ no}.
+  \]
+  \item No swaps occurred, so \(\text{swapped} = \text{false}\). The algorithm terminates early.
+\end{itemize}
+
+\[
+\textbf{Final Sorted Array: } A = [2,\;5,\;6,\;7,\;10,\;12,\;13,\;14,\;17,\;19].
+\]
+
+\subsection*{3. Correctness Argument}
+
+\begin{itemize}
+  \item In each pass, the largest element among the unsorted portion is ``bubbled'' to the end, placing it in its correct position.
+  \item After \(k\) passes, the last \(k\) elements are in their final sorted positions.
+  \item If a pass completes with no swaps, the array is already sorted, so the algorithm terminates early.
+  \item By the standard Bubble Sort correctness argument (often proved by induction), we conclude that the entire array is sorted upon termination.
+\end{itemize}
+
+\subsection*{4. Time Complexity}
+\begin{itemize}
+  \item \textbf{Worst Case:} \(\mathcal{O}(n^2)\). If the array is in reverse order, each pass requires up to \((n-1)\) comparisons, and we need \(n-1\) passes.
+  \item \textbf{Best Case:} \(\mathcal{O}(n)\). If the array is already sorted, the first pass finds no swaps and terminates.
+  \item \textbf{Average Case:} \(\mathcal{O}(n^2)\). On average, Bubble Sort still behaves quadratically, though the early‐stopping check can shorten some cases.
+\end{itemize}
+
+
+For the time complexity, the inner loop is (for j:= 1 upto size(A) -1) runs n-i,and for the outer loop (while (i <=size(A) and swapped) it runs n-1 times. 
+
+therefor the total number of comparisoss S is 
+$S = (n-1) + (n-2) + (n-3) +... + 1$
+
+this i can rewrite as 
+
+I can write the total comparisons as:
+\[
+S = \sum_{i=1}^{n-1} (n - i).
+\]
+
+\subsection{1.b}
+
+
+
+\textbf{Note:} The original problem statement mentions an array in (1). 
+Since that array is not provided in the snippet, 
+this example uses the array 
+\[
+A = [5,\, 2,\, 4,\, 7,\, 1,\, 3,\, 2,\, 6].
+\]
+If your array is different, simply replace these values and follow the same procedure.
+
+\subsection*{1. The Merge Sort Algorithm}
+\begin{itemize}
+    \item \textbf{Divide}: Recursively split the array into two halves until each subarray has size 1 (or 0).
+    \item \textbf{Conquer}: Sort each small subarray of size 1 (trivially sorted).
+    \item \textbf{Combine (Merge)}: Recursively merge these small sorted subarrays to form bigger sorted subarrays until the entire array is sorted.
+\end{itemize}
+
+\subsection*{2. Top-Level Recursive Call}
+
+We call \(\text{mergeSort}(A)\). This splits the array \(A\) into two halves:
+\[
+A_L = [5,\, 2,\, 4,\, 7], \quad
+A_R = [1,\, 3,\, 2,\, 6].
+\]
+
+Then we recursively sort each half:
+\[
+\text{mergeSort}(A_L), \quad \text{mergeSort}(A_R).
+\]
+Finally, we merge the two sorted halves.
+
+\subsection*{3. Sort the Left Half \([5,\,2,\,4,\,7]\)}
+
+\subsubsection*{3.1 Split \([5,\,2,\,4,\,7]\)}
+\[
+A_{L1} = [5,\,2], \quad
+A_{L2} = [4,\,7].
+\]
+Recursively sort each of these.
+
+\paragraph{Sort \([5,\,2]\):}
+\begin{itemize}
+    \item Split into \([5]\) and \([2]\).
+    \item Each subarray of size 1 is already sorted.
+    \item Merge \([5]\) and \([2]\):
+    \[
+        \min(5,2) = 2 \;\rightarrow\; [2],
+        \quad \text{then append } 5 \;\rightarrow\; [2,5].
+    \]
+    \[
+        \text{Result} = [2,\,5].
+    \]
+\end{itemize}
+
+\paragraph{Sort \([4,\,7]\):}
+\begin{itemize}
+    \item Split into \([4]\) and \([7]\).
+    \item Each subarray of size 1 is already sorted.
+    \item Merge \([4]\) and \([7]\):
+    \[
+        \min(4,7) = 4 \;\rightarrow\; [4],
+        \quad \text{then append } 7 \;\rightarrow\; [4,7].
+    \]
+    \[
+        \text{Result} = [4,\,7].
+    \]
+\end{itemize}
+
+\subsubsection*{3.2 Merge \([2,\,5]\) and \([4,\,7]\)}
+\[
+[2,5] \quad \text{vs.} \quad [4,7].
+\]
+\begin{itemize}
+    \item Compare 2 and 4: \(\min(2,4) = 2\). Merged array: \([2]\).
+    \item Compare 5 and 4: \(\min(5,4) = 4\). Merged array: \([2,4]\).
+    \item Compare 5 and 7: \(\min(5,7) = 5\). Merged array: \([2,4,5]\).
+    \item Only 7 remains: Merged array: \([2,4,5,7]\).
+\end{itemize}
+Hence, the left half is sorted as
+\[
+A_L = [2,\,4,\,5,\,7].
+\]
+
+\subsection*{4. Sort the Right Half \([1,\,3,\,2,\,6]\)}
+
+\subsubsection*{4.1 Split \([1,\,3,\,2,\,6]\)}
+\[
+A_{R1} = [1,\,3], \quad
+A_{R2} = [2,\,6].
+\]
+Recursively sort each of these.
+
+\paragraph{Sort \([1,\,3]\):}
+\begin{itemize}
+    \item Split into \([1]\) and \([3]\).
+    \item Each is size 1, so each is already sorted.
+    \item Merge \([1]\) and \([3]\):
+    \[
+        \min(1,3) = 1 \;\rightarrow\; [1],
+        \quad \text{then append } 3 \;\rightarrow\; [1,3].
+    \]
+    \[
+        \text{Result} = [1,\,3].
+    \]
+\end{itemize}
+
+\paragraph{Sort \([2,\,6]\):}
+\begin{itemize}
+    \item Split into \([2]\) and \([6]\).
+    \item Each is size 1, so each is already sorted.
+    \item Merge \([2]\) and \([6]\):
+    \[
+        \min(2,6) = 2 \;\rightarrow\; [2],
+        \quad \text{then append } 6 \;\rightarrow\; [2,6].
+    \]
+    \[
+        \text{Result} = [2,\,6].
+    \]
+\end{itemize}
+
+\subsubsection*{4.2 Merge \([1,\,3]\) and \([2,\,6]\)}
+\[
+[1,3] \quad \text{vs.} \quad [2,6].
+\]
+\begin{itemize}
+    \item Compare 1 and 2: \(\min(1,2) = 1\). Merged array: \([1]\).
+    \item Compare 3 and 2: \(\min(3,2) = 2\). Merged array: \([1,2]\).
+    \item Compare 3 and 6: \(\min(3,6) = 3\). Merged array: \([1,2,3]\).
+    \item Only 6 remains: Merged array: \([1,2,3,6]\).
+\end{itemize}
+Hence, the right half is sorted as
+\[
+A_R = [1,\,2,\,3,\,6].
+\]
+
+\subsection*{5. Final Merge of \([2,\,4,\,5,\,7]\) and \([1,\,2,\,3,\,6]\)}
+
+Now we merge the two sorted halves:
+\[
+[2,\,4,\,5,\,7] \quad \text{and} \quad [1,\,2,\,3,\,6].
+\]
+\begin{enumerate}
+    \item Compare 2 vs 1: \(\min(2,1) = 1\). Merged array: \([1]\).
+    \item Compare 2 vs 2: both are equal. We can choose either first; assume we pick from the left. Merged array: \([1,2]\).
+    \item Compare 4 vs 2: \(\min(4,2) = 2\). Merged array: \([1,2,2]\).
+    \item Compare 4 vs 3: \(\min(4,3) = 3\). Merged array: \([1,2,2,3]\).
+    \item Compare 4 vs 6: \(\min(4,6) = 4\). Merged array: \([1,2,2,3,4]\).
+    \item Compare 5 vs 6: \(\min(5,6) = 5\). Merged array: \([1,2,2,3,4,5]\).
+    \item Compare 7 vs 6: \(\min(7,6) = 6\). Merged array: \([1,2,2,3,4,5,6]\).
+    \item Only 7 remains in the left array. Merged array: \([1,2,2,3,4,5,6,7]\).
+\end{enumerate}
+
+Thus, the fully sorted array is:
+\[
+\boxed{[1,\,2,\,2,\,3,\,4,\,5,\,6,\,7]}.
+\]
+
+\subsection*{6. Conclusion}
+You can replicate these steps exactly for any other array. 
+Simply split, sort each half, and merge carefully, 
+noting the order in which you pick elements during the merge step. 
+
+\subsection{1.c}
+
+if an array is already sorted then, bubble sort runs in o(n) because the array is already sorted and therefore it does not have to swap any elements. With merge sort runs in O(n log n) because it have to compare elements when merging. So bubble sort is asymptoticaly faster than merge sort.
+
+\subsection{1.d}
+
+For merge sort it does not matter if it is sorted or not. with bubble sort it now have to do the maximum number of swaps and therefore the time complexity is not $O(n^2)$. Therefore merge sort is now the asymptotically faster algorithmen
 
 
 
@@ -66,31 +391,50 @@ else
 
 \subsection{a}
 
-The thing that went wrong was that the number of kids was odd and not even. 
+
+\subsection{c}
 
 
-If looking at my drawing you see two senarios, the first is if there is an even amount of kids. Then it is possible to position the kids in a way that they are each orther closes, then it is called a mutual 2-cycles and it is possible to that all kids recives a ball, like 
-\[
-A \to B \quad \text{and} \quad B \to A.
-\]
+\begin{theorem}[Tiling a $2^n \times 2^n$ Board with One Square Removed]
+Let $n \ge 1$ be an integer. Suppose we have a $2^n \times 2^n$ chessboard (or grid), and one of its squares is removed. Then the remaining squares can be covered exactly by L-shaped trominoes, where each tromino covers $3$ squares.
+\end{theorem}
 
-in the orther case there allways be one kid left without any ball.
+\begin{proof}
+We proceed by induction on $n$.
+
+\paragraph{Base Case ($n=1$).}
+For $n=1$, the board is $2 \times 2$. Removing one square leaves exactly three squares, which can be covered by a single L-shaped tromino. Thus, the statement holds for $n=1$.
+
+\paragraph{Inductive Step.}
+Assume the statement is true for $n=k$, i.e., any $2^k \times 2^k$ board with one square removed can be tiled by L-shaped trominoes. We must show it remains true for $n = k+1$.
+
+\begin{enumerate}
+  \item \textbf{Partition the Board:}  
+  Consider a $2^{k+1} \times 2^{k+1}$ board with one square removed. Subdivide this board into four quadrants, each of size $2^k \times 2^k$. Exactly one of these quadrants contains the removed square.
+
+  \item \textbf{Place a Central Tromino:}  
+  Notice that the four quadrants meet at a central point (the boundary where they touch). In the three quadrants that do \emph{not} contain the removed square, choose the corner square of each that touches this center, and cover these three corner squares with a single L-shaped tromino. This effectively ``removes'' one square from each of the three quadrants.
+
+  \item \textbf{Apply the Inductive Hypothesis:}  
+  Now, each of the four quadrants is a $2^k \times 2^k$ board with exactly one square removed:
+  \begin{itemize}
+    \item The original missing square in the quadrant that already had it.
+    \item One newly covered square in each of the other three quadrants.
+  \end{itemize}
+  By the inductive hypothesis, each $2^k \times 2^k$ quadrant with one square removed can be tiled by L-shaped trominoes.
+
+  \item \textbf{Combine the Tilings:}  
+  Tiling each quadrant separately covers all squares in those quadrants. Together with the one L-shaped tromino placed in the center, this yields a complete tiling of the entire $2^{k+1} \times 2^{k+1}$ board (minus the single removed square) by L-shaped trominoes.
+\end{enumerate}
+
+Thus, by induction, the statement is true for all $n \ge 1$.
+\end{proof}
 
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[width=0.8\textwidth]{Figures/figure_1.jpg}
-    \caption{Caption for the figure.}
-    \label{fig:myfigure}
-\end{figure}
+\begin{remark}
+The key idea is the \emph{divide-and-conquer} approach. By placing a single L-shaped tromino in the center to ``force'' each quadrant to have one missing square, we reduce the problem to four smaller instances of the same problem.
+\end{remark}
 
 
-
-
-
-What went wrong? Was Jakob just immensely unlucky? Or can you prove mathematically
-that it was unavoidable that at least one child would end up without a ball? Would this
-had been different if Jakob had not insisted on 51 children, but had accepted the proposal
-by his colleagues to have 50 children? Or if not all distances would have had to be different?
 
 \end{document}
